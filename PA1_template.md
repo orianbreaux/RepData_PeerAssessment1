@@ -47,7 +47,7 @@ Calculating and reporting the total number of missing values in the dataset (i.e
 sum(!complete.cases(data))
 ```
 
-To fill in missing values, replace NA values for given intervals with their corresponding daily steps average.
+To fill in missing values, replace NA values for given intervals with their corresponding daily steps average. For example, if time interval 1 is an NA value, replace with the calculated daily average for time interval 1.
 
 ```{r,echo=TRUE}
 data_na <- data[!complete.cases(data),]
