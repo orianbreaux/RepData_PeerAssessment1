@@ -14,7 +14,9 @@ Make a histogram of the total number of steps taken each day, ignoring missing v
 ```{r, echo=TRUE}
 melted <- melt(data,c("date"),na.rm=TRUE)
 stepsByDay <- dcast(melted,date~variable,sum)
+```
 
+```{r}
 hist(stepsByDay[,2], xlab="sum of steps taken per day",main="")
 
 ```
@@ -31,7 +33,8 @@ Making a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) an
 ```{r, echo=TRUE}
 melted <- melt(data,c("interval"), measure=c("steps"),na.rm=TRUE)
 stepsByInterval <- dcast(melted,interval~variable,mean)
-
+```
+```{r plot}
 plot(stepsByInterval,type="l",xlab="5-minute interval",ylab="average number of steps")
 ```
 
@@ -40,7 +43,7 @@ Which 5-minute interval, on average across all the days in the dataset, contains
 stepsByInterval[stepsByInterval$steps == max(stepsByInterval$steps),]
 ```
 
-## Imputing missing values
+## Inputing missing values
 Calculating and reporting the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
 ```{r,echo=TRUE}
@@ -64,9 +67,13 @@ Make a histogram of the total number of steps taken each day and Calculate and r
 ```{r, echo=TRUE}
 melted <- melt(data_filled,c("date"),na.rm=TRUE)
 stepsByDay <- dcast(melted,date~variable,sum)
+```
 
+```{r hist}
 hist(stepsByDay[,2],xlab="sum of steps taken per day",main="")
+```
 
+```{r, echo=TRUE}
 mean(stepsByDay[,2])
 median(stepsByDay[,2])
 ```
@@ -96,7 +103,8 @@ Plot using lattice:
 ```{r,echo=TRUE}
 melted <- melt(data_filled,c("interval","day"), measure=c("steps"),na.rm=TRUE)
 stepsByInterval <- dcast(melted,interval + day~variable,mean)
-
+```
+```{r xyplot}
 library(lattice)
 xyplot(steps~interval | day, data=stepsByInterval, layout=c(1,2), type="l", xlab="Interval", ylab="Number of steps")
 ```
