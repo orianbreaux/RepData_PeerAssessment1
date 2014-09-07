@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assignment 1""
+output: 
+  html_document:
+    keep_md: true
+---
 
 ## Loading and preprocessing the data
 ```{r, echo=TRUE}
@@ -33,8 +38,7 @@ Making a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) an
 ```{r, echo=TRUE}
 melted <- melt(data,c("interval"), measure=c("steps"),na.rm=TRUE)
 stepsByInterval <- dcast(melted,interval~variable,mean)
-```
-```{r plot}
+
 plot(stepsByInterval,type="l",xlab="5-minute interval",ylab="average number of steps")
 ```
 
@@ -63,13 +67,11 @@ data_filled <- rbind(data_na_filled, data[complete.cases(data),])
 ```
 
 
-Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
+###Make a histogram of the total number of steps taken each day, and calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 ```{r, echo=TRUE}
 melted <- melt(data_filled,c("date"),na.rm=TRUE)
 stepsByDay <- dcast(melted,date~variable,sum)
-```
 
-```{r hist}
 hist(stepsByDay[,2],xlab="sum of steps taken per day",main="")
 ```
 
@@ -103,8 +105,7 @@ Plot using lattice:
 ```{r,echo=TRUE}
 melted <- melt(data_filled,c("interval","day"), measure=c("steps"),na.rm=TRUE)
 stepsByInterval <- dcast(melted,interval + day~variable,mean)
-```
-```{r xyplot}
+
 library(lattice)
 xyplot(steps~interval | day, data=stepsByInterval, layout=c(1,2), type="l", xlab="Interval", ylab="Number of steps")
 ```
